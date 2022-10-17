@@ -2,8 +2,6 @@
 import sys
 import os
 
-# SCRIPT_DIR = os.path.dirname(__file__)
-# sys.path.append(os.path.dirname(SCRIPT_DIR))
 path = "C:\D\GitHub"
 if path not in sys.path:
     sys.path.append(path)
@@ -15,14 +13,7 @@ from mola import Engine
 from mola import module_rhino
 
 mola_mesh = module_rhino.mesh_from_rhino_mesh(rhino_mesh)
-# mola_mesh = mola.Mesh()
 
-# a = mola_mesh.add_vertex(0, 0, 0)
-# b = mola_mesh.add_vertex(274, 0, 0)
-# c = mola_mesh.add_vertex(274, 80, 0)
-# d = mola_mesh.add_vertex(0, 80, 0)
-# mola_mesh.add_face([a, b, c, d])
-# print(mola_mesh.faces[0].group)
 
 for f in mola_mesh.faces:
     f.group = "block"

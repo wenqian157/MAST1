@@ -1,12 +1,3 @@
-#region FOR RUNNING IN CODE LISTENER
-# import sys
-# import os 
-
-# path = os.path.dirname(os.path.dirname(__file__))
-# if path not in sys.path:
-#     sys.path.append(path)
-#endregion
-
 import mola
 from mola import module_rhino
 import math
@@ -22,6 +13,10 @@ my_sphere = mola.subdivide_mesh_catmull(my_sphere)
 #region GET ATTRIBUTES
 
 face_angles = my_sphere.face_properties(mola.face_angle_vertical)
+
+# face_angles = []
+# for f in my_sphere.faces:
+#     face_angles.append(f.face_angle_vertical)
 
 for i in range(len(face_angles)):
     face_angles[i] = abs(math.pi - abs(face_angles[i]))
@@ -46,6 +41,11 @@ for i in range(len(z_positions)):
 
 # parametric subdivision based on the analyses
 # deeper opening when vertical face, large opening when higher, closed on the bottom
+
+# new_mesh = mola.Mesh()
+# for f in my_sphere.faces:
+#     new_mesh.faces.extend(mola.subdivide_face_extrude_tapered(f, 10, 0.5, True))
+
 my_sphere = mola.subdivide_mesh_extrude_tapered(my_sphere, face_angles, fractions, doCaps)
 
 #region OFFSET AND SMOOTH
@@ -62,6 +62,3 @@ colors = my_sphere.face_properties(mola.face_center_z)
 mola.color_faces_by_values(my_sphere.faces, colors)
 
 a = module_rhino.display_mesh(my_sphere)
-
-
-
