@@ -14,7 +14,6 @@ from mola import module_rhino
 
 mola_mesh = module_rhino.mesh_from_rhino_mesh(rhino_mesh)
 
-mola_mesh.update_topology()
 Engine.group_by_orientation(mola_mesh.faces, "up", "down", "side")
 
 for f in mola_mesh.faces:
@@ -41,7 +40,7 @@ mola_mesh.faces = Engine.subdivide(mola_mesh.faces, my_filter, my_rule, my_label
 
 
 def my_filter(face):
-    return face.group == "up" and face.center().z <= 10
+    return face.group == "up" and face.center().z <= 10 and abs(face.center().x) <= (dist_x - 4) and abs(face.center().y) <= (dist_y - 4)
 
 def my_rule(face):
     return mola.subdivide_face_split_grid(face, 2, 2)
@@ -55,7 +54,7 @@ mola_mesh.faces = Engine.subdivide(mola_mesh.faces, my_filter, my_rule, my_label
 
 
 def my_filter(face):
-    return face.group == "up" and face.center().z <= 10
+    return face.group == "up" and face.center().z <= 10 and abs(face.center().x) <= (dist_x - 2) and abs(face.center().y) <= (dist_y - 2)
 
 def my_rule(face):
     return mola.subdivide_face_extrude(face, 2)
